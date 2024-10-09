@@ -161,7 +161,11 @@ export default function Index({
                       <td className="px-3 py-2">
                         <img src={project.image_path} alt="" className="w-16" />
                       </td>
-                      <td className="px-3 py-2">{project.name}</td>
+                      <th className="text-nowrap px-3 py-2 text-gray-100 hover:underline">
+                        <Link href={route('project.show', project.id)}>
+                          {project.name}
+                        </Link>
+                      </th>
                       <td className="px-3 py-2">
                         <span
                           className={cn(
