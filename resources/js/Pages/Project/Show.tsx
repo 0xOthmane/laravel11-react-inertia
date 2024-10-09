@@ -19,7 +19,6 @@ const Show = ({
   tasks: PaginationProps<Task>;
   queryParams: Record<string, string>;
 }) => {
-  console.log(tasks);
   return (
     <AuthenticatedLayout
       header={
