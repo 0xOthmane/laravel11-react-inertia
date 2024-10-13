@@ -4,18 +4,12 @@ import SelectInput from '@/Components/SelectInput';
 import TextAreaInput from '@/Components/TextAreaInput';
 import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { ProjectFormData } from '@/types/forms';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEvent } from 'react';
 
-interface FormData {
-  image: File | null; // Allow image to be a File or null
-  name: string;
-  status: string;
-  description: string;
-  due_date: string;
-}
 const Create = () => {
-  const { data, setData, post, errors } = useForm<FormData>({
+  const { data, setData, post, errors } = useForm<ProjectFormData>({
     image: null,
     name: '',
     status: '',

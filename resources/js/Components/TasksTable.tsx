@@ -11,10 +11,12 @@ import TextInput from './TextInput';
 const TasksTable = ({
   tasks,
   queryParams,
+  success,
   hideProjectColumn = false,
 }: {
   tasks: PaginationProps<Task>;
   queryParams: Record<string, string>;
+  success: string;
   hideProjectColumn?: boolean;
 }) => {
   queryParams = queryParams || {};
@@ -47,8 +49,19 @@ const TasksTable = ({
     }
     router.get(route('task.index', queryParams));
   };
+
+  const deleteTask = (task: Task) => {
+    if (!window.confirm('Are you sure you want to delete the task?')) return;
+    router.delete(route('task.destroy', task.id));
+  };
+
   return (
     <>
+      {success && (
+        <div className="mb-4 rounded bg-emerald-500 px-4 py-2 text-white">
+          {success}
+        </div>
+      )}
       <div className="overflow-auto">
         <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400 rtl:text-right">
           <thead className="border-b-2 border-gray-500 bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
@@ -164,19 +177,19 @@ const TasksTable = ({
                     <td className="text-nowrap px-3 py-2">{task.created_at}</td>
                     <td className="text-nowrap px-3 py-2">{task.due_date}</td>
                     <td className="px-3 py-2">{task.createdBy.name}</td>
-                    <td className="px-3 py-2">
+                    <td className="text-nowrap px-3 py-2">
                       <Link
                         href={route('task.edit', task.id)}
                         className="mx-1 font-medium text-blue-600 hover:underline dark:text-blue-500"
                       >
                         Edit
                       </Link>
-                      <Link
-                        href={route('task.destroy', task.id)}
+                      <button
+                        onClick={() => deleteTask(task)}
                         className="mx-1 font-medium text-red-600 hover:underline dark:text-red-500"
                       >
                         Delete
-                      </Link>
+                      </button>
                     </td>
                   </tr>
                 ))}

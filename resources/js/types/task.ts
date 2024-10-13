@@ -10,7 +10,7 @@ export interface Task {
   priority: string;
   status: string;
   project: Project;
-  assigned_user?: UserResource;
+  assignedUser?: UserResource;
   image_path: string;
   createdBy: UserResource;
   updatedBy: UserResource;
