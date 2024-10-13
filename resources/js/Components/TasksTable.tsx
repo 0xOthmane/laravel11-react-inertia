@@ -163,11 +163,15 @@ const TasksTable = ({
                     {!hideProjectColumn && (
                       <td className="px-3 py-2">{task.project.name}</td>
                     )}
-                    <td className="px-3 py-2">{task.name}</td>
+                    <th className="px-3 py-2 hover:cursor-pointer hover:underline">
+                      <Link href={route('task.show', task.id)}>
+                        {task.name}
+                      </Link>
+                    </th>
                     <td className="px-3 py-2">
                       <span
                         className={cn(
-                          'rounded px-3 py-1 text-white',
+                          'text-nowrap rounded px-3 py-1 text-white',
                           TASK_STATUS_CLASS_MAP[task.status],
                         )}
                       >

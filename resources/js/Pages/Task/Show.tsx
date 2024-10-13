@@ -1,22 +1,15 @@
-import TasksTable from '@/Components/TasksTable';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { TASK_STATUS_CLASS_MAP, TASK_STATUS_TEXT_MAP } from '@/lib/constants';
+import {
+  TASK_PRIORITY_CLASS_MAP,
+  TASK_PRIORITY_TEXT_MAP,
+  TASK_STATUS_CLASS_MAP,
+  TASK_STATUS_TEXT_MAP,
+} from '@/lib/constants';
 import { cn } from '@/lib/utils';
-import { PaginationProps } from '@/types/pagination';
 import { Task } from '@/types/task';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 
-const Show = ({
-  task,
-  tasks,
-  queryParams,
-  success,
-}: {
-  task: Task;
-  tasks: PaginationProps<Task>;
-  queryParams: Record<string, string>;
-  success: string;
-}) => {
+const Show = ({ task }: { task: Task }) => {
   return (
     <AuthenticatedLayout
       header={
@@ -61,11 +54,39 @@ const Show = ({
                     </p>
                   </div>
                   <div className="mt-4">
+                    <label className="text-lg font-bold">Task Priority</label>
+                    <p className="mt-1">
+                      <span
+                        className={cn(
+                          'rounded px-3 py-1 text-white',
+                          TASK_PRIORITY_CLASS_MAP[task.priority],
+                        )}
+                      >
+                        {TASK_PRIORITY_TEXT_MAP[task.priority]}
+                      </span>
+                    </p>
+                  </div>
+                  <div className="mt-4">
+                    <label className="text-lg font-bold">Assigned to</label>
+                    <p className="mt-1">{task.assignedUser?.name}</p>
+                  </div>
+                  <div className="mt-4">
                     <label className="text-lg font-bold">Created By</label>
                     <p className="mt-1">{task.createdBy.name}</p>
                   </div>
                 </div>
                 <div>
+                  <div>
+                    <label className="text-lg font-bold">Project Name</label>
+                    <p className="mt-1">
+                      <Link
+                        href={route('project.show', task.project.id)}
+                        className="hover:cursor-pointer hover:underline"
+                      >
+                        {task.project.name}
+                      </Link>
+                    </p>
+                  </div>
                   <div className="mt-4">
                     <label className="text-lg font-bold">Due Date</label>
                     <p className="mt-1">{task.due_date}</p>
@@ -84,20 +105,6 @@ const Show = ({
                 <label className="text-lg font-bold">Task Description</label>
                 <p className="mt-1">{task.description}</p>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="pb-12">
-        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
-            <div className="p-6 text-gray-900 dark:text-gray-100">
-              <TasksTable
-                tasks={tasks}
-                queryParams={queryParams}
-                success={success}
-                hideProjectColumn
-              />
             </div>
           </div>
         </div>
