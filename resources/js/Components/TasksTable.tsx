@@ -16,7 +16,7 @@ const TasksTable = ({
 }: {
   tasks: PaginationProps<Task>;
   queryParams: Record<string, string>;
-  success: string;
+  success?: string;
   hideProjectColumn?: boolean;
 }) => {
   queryParams = queryParams || {};

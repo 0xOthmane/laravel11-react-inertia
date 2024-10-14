@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 import { PaginationProps } from '@/types/pagination';
 import { Project } from '@/types/project';
 import { Task } from '@/types/task';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 
 const Show = ({
   project,
@@ -22,9 +22,17 @@ const Show = ({
   return (
     <AuthenticatedLayout
       header={
-        <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-          {`Project ${project.name}`}
-        </h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+            {`Project ${project.name}`}
+          </h2>
+          <Link
+            href={route('project.edit', project.id)}
+            className="rounded bg-emerald-500 px-3 py-1 text-white shadow transition-all hover:bg-emerald-600"
+          >
+            Edit
+          </Link>
+        </div>
       }
     >
       <Head title={`Project ${project.name}`} />

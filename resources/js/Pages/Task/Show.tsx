@@ -13,9 +13,17 @@ const Show = ({ task }: { task: Task }) => {
   return (
     <AuthenticatedLayout
       header={
-        <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-          {`Task ${task.name}`}
-        </h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+            {`Task ${task.name}`}
+          </h2>
+          <Link
+            href={route('task.edit', task.id)}
+            className="rounded bg-emerald-500 px-3 py-1 text-white shadow transition-all hover:bg-emerald-600"
+          >
+            Edit
+          </Link>
+        </div>
       }
     >
       <Head title={`Task ${task.name}`} />
